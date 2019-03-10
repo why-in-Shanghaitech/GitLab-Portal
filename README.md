@@ -1,4 +1,4 @@
-# GitLab-Porter
+# GitLab-Portal
 Help students in SI100B in Shanghaitech to download and hand in their homework.
 
 # Before you start

@@ -102,20 +102,31 @@ class Load(object):
                     pass
                 else:
                     return
+            
+            tag_name = "trial_" + str(trial_time)
+            if not(os.path.exists(homework_name)):
+                tkinter.messagebox.showwarning('警告','作业文件夹不存在！请重试。')
+                return
+            
+            cur_path = os.getcwd()
+            os.chdir("{homework}".format(homework = homework_name))
+            os.system("git add .")
+            os.system("git commit -m homework_hand_in")
+            os.system("git push origin master")
+            if not(tkinter.messagebox.askokcancel("警告","已完成上传作业操作。请检查是否成功后继续。\n注意：如果未上传成功并继续仍将消耗可用作业提交次数！")):
+                os.chdir(cur_path)
+                return
+            
+            print("\nPlease wait and do not click any buttons!")
+            os.system("git tag {tagname} && git push origin {tagname}".format(tagname = tag_name))
 
+            os.chdir(cur_path)
             with open("log.txt","w",encoding="utf-8") as f_w:
                 f_w.write(homework_name)
                 f_w.write("\n")
                 f_w.write(name)
                 f_w.write("\n")
                 f_w.write(str(trial_time + 1))
-            
-            tag_name = "trial_" + str(trial_time)
-            os.system("cd {homework}".format(homework = homework_name))
-            os.system("git add .")
-            os.system("git commit -m homework_hand_in")
-            os.system("git push origin master")
-            os.system("git tag {tagname} && git push origin {tagname}".format(tagname = tag_name))
              
             tkinter.messagebox.showinfo('提示','提交结束！请检查是否提交成功。')
             sys.exit(0)

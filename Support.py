@@ -6,6 +6,69 @@ import tkinter.messagebox
 class Load(object):
 
     @classmethod
+    def config(self):
+
+        def set_command():
+            user_name = e_name.get()
+            user_email = e_email.get()
+            
+            # config setting.
+            os.system('git config --global --replace-all user.name "{name}"'.format(name = user_name))
+            os.system('git config --global --replace-all user.email "{email}"'.format(email = user_email))
+            
+            tkinter.messagebox.showinfo('提示','设置成功！')
+            sys.exit(0)
+            
+        def cancel_command():
+            sys.exit(0)
+
+        user_name = "fengtk"
+        user_email = "fengtk@shanghaitech.edu.cn"
+
+        root = tkinter.Tk()
+        root.title('初始设置') 
+        sw = root.winfo_screenwidth()
+        #得到屏幕宽度
+        sh = root.winfo_screenheight()
+        #得到屏幕高度
+        ww = 330
+        wh = 130
+        x = (sw-ww) / 2
+        y = (sh-wh) / 2
+        root.geometry("%dx%d+%d+%d" %(ww,wh,x,y))
+        #输入框宽度
+        width_setting = 35
+        
+        tk_name = tkinter.StringVar()
+        tk_name.set(user_name)
+        # 第一行，用户名标签及输入框
+        l_name =tkinter.Label(root,text='用户名：')
+        l_name.grid(row=0,column=0,sticky=tkinter.W)
+        p_name =tkinter.Label(root,text='样例：fengtk')
+        p_name.grid(row=1,column=1,sticky=tkinter.W)
+        e_name =tkinter.Entry(root, textvariable=tk_name, width = width_setting)
+        e_name.grid(row=0,column=1,columnspan=2,sticky=tkinter.W)
+
+        tk_email = tkinter.StringVar()
+        tk_email.set(user_email)
+        #第二行，邮箱标签及输入框
+        l_email = tkinter.Label(root,text='邮箱：')
+        l_email.grid(row=2,column=0,sticky=tkinter.W)
+        p_email =tkinter.Label(root,text='样例：fengtk@shanghaitech.edu.cn')
+        p_email.grid(row=3,column=1,sticky=tkinter.W)
+        e_email = tkinter.Entry(root, textvariable=tk_email, width = width_setting)
+        e_email.grid(row=2,column=1,columnspan=2,sticky=tkinter.W)
+
+        #第三行设置按扭，command绑定事件
+        b_download = tkinter.Button(root,text='   确定   ',command=set_command)
+        b_download.grid(row=4,column=1,sticky=tkinter.E)
+
+        b_cancel = tkinter.Button(root,text='   取消   ',command=cancel_command)
+        b_cancel.grid(row=4,column=2,sticky=tkinter.E)
+
+        root.mainloop()
+
+    @classmethod
     def download(self):
 
         def download_command():
@@ -215,5 +278,7 @@ if __name__ == "__main__":
             Load.download()
         elif sys.argv[1] == '--handin':
             Load.handin()
+        elif sys.argv[1] == '--config':
+            Load.config()
     else:
         print("Wrong file name! Please get it updated.")

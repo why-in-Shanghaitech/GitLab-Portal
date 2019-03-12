@@ -3,6 +3,8 @@ Help poor students in SI100B in Shanghaitech to download and hand in their homew
 
 帮助上科大SI100B可怜的同学们下载与提交作业。
 
+你现在可以通过此百度经验了解[如何使用GitLab-Portal](https://jingyan.baidu.com/article/76a7e4092e948efc3b6e153c.html)
+
 # Before you start
 First you have to make sure that you have install git in your PC.
 
